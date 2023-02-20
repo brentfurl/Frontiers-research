@@ -5,7 +5,7 @@ df_change_gsheet <- "https://docs.google.com/spreadsheets/d/138WUGnw9qT8ebrjkymc
 df_change <- read_sheet(df_change_gsheet)
 
 
-df_labelled_read <- read_sheet(df_labelled_gsheet, sheet = "Final") %>% 
+df_labelled_read <- read_sheet(df_labelled_gsheet, sheet = "Izzy") %>% 
   rename(org_valence = "org valence (1-5) 5 = worst", amount_change = "degree(amount) of change (1-5) 5 = most") %>% 
   filter(!is.na(org_valence))
 
