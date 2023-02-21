@@ -1,5 +1,5 @@
 # get data and dates for ergon, rt and mcc
-pacman::p_load("tidyverse")
+pacman::p_load("tidyverse", "googlesheets4", "googledrive")
 
 # MCC - see MCC.2 "DATA PREP_2021plus2019 # The CPIs are different.  Also, 2019 does not measure positivity and satisfaction
   
