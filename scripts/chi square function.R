@@ -31,6 +31,7 @@ chi <- function(tag_groupings_chi = NULL, tags_chi = NULL, groupingsAndOr = "|",
   return(freqs)
 }
 
+########## LOOPS FOR RUNNING CHI SQUARE ON ALL TAG GROUPS AND ALL KEYWORDS INDIVIVIDUALLY
 
 # loop through length of uniqueGroupings on the following function
 uniqueGroupings <- unique(df_cats %>% filter(company == "Ergon") %>% unnest_tokens(allGroupings, groupings, token = 'regex', pattern=",") %>% pull(allGroupings)) # this get all unique groupings in df
@@ -49,8 +50,11 @@ for(t in 1:length(uniqueTags)) {
 uniqueTagsChi <- bind_rows(tags_chi_loop) %>% arrange(p)
 
 
-groupingsAndTags <- bind_rows(uniqueGroupingsChi, uniqueTagsChi) %>% arrange(p)
 
+
+# COMBINE TAG GROUPINGS AND TAG CHI SQUARES INTO ONE DF AND CREATE GSHEET
+
+groupingsAndTags <- bind_rows(uniqueGroupingsChi, uniqueTagsChi) %>% arrange(p)
 drive_trash("chi-square-tags")
 gs4_create(name = "chi-square-tags", sheets = list(
   chiSquare = groupingsAndTags))#, anovas = anovas_sig_no_nests_basic, nps_regression = model))

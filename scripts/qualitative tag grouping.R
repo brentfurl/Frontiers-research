@@ -34,10 +34,15 @@ df_cats <- df_labelled_tot %>%
   group_by(ResponseId) %>% 
   summarise(groupings = paste(unique(grouping)[unique(grouping) != ""], collapse=","), tags = paste(unique(tag), collapse=",")) %>% 
   right_join(., df_change, by = "ResponseId") %>% 
-  #left_join(., ergon %>% select(ResponseId, Year)) %>% 
+  filter(company == "Ergon") %>% 
+  mutate(ROLE = factor(ROLE)) %>% 
+  mutate(ROLE = fct_collapse(ROLE,
+                             Technical = c("Technical", "Management", "Research + Technology Development", "Health, Safety + Environment"))) %>% 
+  mutate(roleOpsVsAll = fct_collapse(ROLE,
+                                     nonOperations = c("Technical", "Admin + Corporate Support", "Finance + Accounting", "Information Technology", "Sales + Marketing"))) %>% 
   filter(!is.na(tags)) 
 
-
+# df_cats %>%  filter(Year == "2022") %>%  group_by(ROLE) %>% count()
 
 
 
