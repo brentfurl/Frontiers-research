@@ -35,6 +35,7 @@ df_cats <- df_labelled_tot %>%
   summarise(groupings = paste(unique(grouping)[unique(grouping) != ""], collapse=","), tags = paste(unique(tag), collapse=",")) %>% 
   right_join(., df_change, by = "ResponseId") %>% 
   filter(company == "Ergon") %>% 
+  mutate(Year = factor(Year)) %>% 
   mutate(ROLE = factor(ROLE)) %>% 
   mutate(ROLE = fct_collapse(ROLE,
                              Technical = c("Technical", "Management", "Research + Technology Development", "Health, Safety + Environment"))) %>% 
